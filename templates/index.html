@@ -1,0 +1,21 @@
+<html>
+<head>
+    <title>Vagas</title>
+</head>
+<body>
+    <h1>Vagas Disponíveis</h1>
+    <ul>
+        {% for job in jobs %}
+            <li>
+                <h3>{{ job[1] }}</h3>
+                <p>{{ job[2] }}</p>
+                <form action="/optimize" method="POST">
+                    <input type="hidden" name="target_job" value="{{ job[1] }}">
+                    <input type="number" name="candidate_id" placeholder="ID do Candidato" required>
+                    <button type="submit">Otimizar</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

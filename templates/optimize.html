@@ -1,0 +1,117 @@
+<!-- templates/optimize.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card p-4 shadow-lg">
+            <div class="text-center mb-4">
+                <h2 class="mb-3">
+                    <i class="fas fa-chart-line text-success"></i>
+                    Resultado da Análise
+                </h2>
+                <a href="/upload_page" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Nova Análise
+                </a>
+            </div>
+
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% else %}
+                <div class="score-card p-4 mb-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="mb-3">Compatibilidade com a Vaga</h4>
+                            <div class="display-4">{{ result.similarity_score }}%</div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="mb-3">Score ATS Simulado</h4>
+                            <div class="progress" style="height: 30px;">
+                                <div 
+                                    class="progress-bar bg-success" 
+                                    role="progressbar" 
+                                    style="width: {{ result.ats_score }}%"
+                                >
+                                    {{ result.ats_score }}%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-warning text-dark">
+                        <h4 class="mb-0">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Palavras-Chave Faltantes
+                        </h4>
+                    </div>
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-briefcase me-2"></i>
+                            Vaga Analisada: {{ result.job_title }}
+                        </h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            {% for keyword in result.missing_keywords %}
+                                <div class="col-md-6 mb-2">
+                                    <span class="badge bg-danger p-2">
+                                        <i class="fas fa-times-circle me-2"></i>
+                                        {{ keyword|capitalize }}
+                                    </span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <h5><i class="fas fa-robot me-2"></i> Recomendações Estratégicas</h5>
+                    <div class="row">
+                        {% for suggestion in result.dynamic_suggestions %}
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="{{ suggestion.icon }} fa-2x text-primary me-3"></i>
+                                        <h6 class="card-title mb-0">{{ suggestion.text }}</h6>
+                                    </div>
+                                    <p class="card-text text-muted small mb-3">
+                                        {{ suggestion.tooltip }}
+                                    </p>
+                                    {% if suggestion.example %}
+                                    <div class="bg-light p-3 rounded">
+                                        <small class="text-success d-block">
+                                            <i class="fas fa-lightbulb me-2"></i>
+                                            Exemplo Prático:
+                                        </small>
+                                        <code class="d-block mt-1">{{ suggestion.example }}</code>
+                                    </div>
+                                    {% endif %}
+                                    {% if suggestion.priority %}
+                                    <div class="mt-2 text-end">
+                                        <span class="badge bg-warning text-dark">
+                                            Prioridade: {{ suggestion.priority }}/5
+                                        </span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>
+    // Ative os tooltips
+    $(function () {
+        $('[data-bs-toggle="tooltip"]').tooltip()
+    })
+</script>
+{% endblock %}

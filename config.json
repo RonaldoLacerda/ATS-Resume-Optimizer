@@ -1,0 +1,57 @@
+
+{
+    "db_config": {
+      "host": "localhost",
+      "user": "root",
+      "password": "",
+      "database": "recruitment_ai"
+    },
+    "min_samples_for_retrain": 5,
+    "stopwords": [
+      "a", "o", "e", "de", "da", "do", "em", "na", "no", "para", "com",
+      "os", "as", "um", "uma", "desejável", "necessário", "atribuições",
+      "será", "como", "que", "por", "pelo", "pela", "sem", "sob", "entre",
+      "até", "após", "desde", "qual", "quais", "onde", "quando",
+      "através", "acerca", "além", "exceto", "segundo", "conforme"
+    ],
+    "generic_terms": [
+      "conhecimento", "experiência", "avançado", "básico",
+      "desejável", "habilidade", "necessário", "atribuições"
+    ],
+    "universal_synonyms": {
+      "webservices": ["api", "rest", "soap"],
+      "backend": ["back-end", "server-side", "api"],
+      "laravel": ["eloquent", "blade", "artisan"],
+      "docker": ["container", "kubernetes", "orchestration", "k8s"],
+      "git": ["version control", "gitflow", "github actions"],
+      "mysql": ["database", "rdbms", "sql"],
+      "oop": ["object-oriented", "encapsulation", "inheritance"],
+      "react": ["spa", "jsx"],
+      "java": ["jvm", "spring"],
+      "python": ["django", "flask", "fastapi"],
+      "go": ["golang"],
+      "csharp": [".net", "dotnet"]
+    },
+    "technical_weights": {
+      "laravel": 5, "docker": 4, "php": 4, "mysql": 3,
+      "api": 3, "rest": 3, "git": 3, "oop": 2,
+      "java": 5, "csharp": 5, "python": 5, "javascript": 5,
+      "react": 4, "angular": 4, "vue": 4,
+      "kotlin": 3, "swift": 3, "flutter": 3,
+      "kubernetes": 4, "terraform": 3,
+      "aws": 4, "azure": 3, "gcp": 3,
+      "sql": 3, "nosql": 3, "spark": 2, "kafka": 2
+    },
+    "technical_vocabulary": [
+      "laravel","php","docker","git","mysql",
+      "api","rest","json","javascript","python",
+      "ruby","go","rust","csharp","kotlin","swift",
+      "scala","typescript","scrum","mvc","orm",
+      "react","angular","vue","flask","django",
+      "spring","hibernate","fastapi","express","next.js",
+      "nuxt","webpack","babel","jenkins","ansible",
+      "kubernetes","terraform","aws","azure","gcp",
+      "hadoop","spark","kafka","rabbitmq"
+    ]
+  }
+  

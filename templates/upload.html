@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card card-upload p-4 text-center">
+            <h1 class="mb-4">
+                <i class="fas fa-robot text-primary"></i>
+                Análise de Currículo com IA
+            </h1>
+            
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <div class="btn-group" role="group">
+                        <label for="pdf-upload" class="btn btn-outline-secondary btn-lg">
+                            <i class="fas fa-file-pdf me-2"></i>
+                            PDF
+                            <input type="file" name="pdf_file" id="pdf-upload" hidden accept=".pdf">
+                        </label>
+                        <label for="word-upload" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-file-word me-2"></i>
+                            Word
+                            <input type="file" name="word_file" id="word-upload" hidden accept=".doc,.docx">
+                        </label>
+                    </div>
+                    <div id="file-name" class="mt-2 text-muted"></div>
+                </div>
+
+                <!-- Restante do formulário permanece igual -->
+                <div class="mb-4">
+                    <input 
+                        type="text" 
+                        name="job_title" 
+                        class="form-control form-control-lg" 
+                        placeholder="Digite o cargo desejado (ex: Desenvolvedor Python)"
+                        required
+                    >
+                </div>
+
+                <div class="mb-4">
+                    <textarea 
+                        name="job_description" 
+                        class="form-control form-control-lg" 
+                        placeholder="Cole aqui a descrição completa da vaga (requisitos, qualificações, etc.)"
+                        rows="5"
+                        required
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-optimize btn-lg">
+                    <i class="fas fa-magic me-2"></i>
+                    Otimizar Agora
+                </button>
+            </form>
+
+            <p class="mt-4 text-muted">
+                <small>
+                    Formatos suportados: PDF ou Word (até 2MB)
+                </small>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+        input.addEventListener('change', function(e) {
+            if (this.files.length > 0) {
+                document.getElementById('file-name').textContent = this.files[0].name;
+                // Desativa o outro input e remove seu arquivo selecionado
+                document.querySelectorAll('input[type="file"]').forEach(otherInput => {
+                    if (otherInput !== this) {
+                        otherInput.value = '';
+                        otherInput.disabled = true;
+                    }
+                });
+            } else {
+                // Reativa os inputs se nenhum arquivo estiver selecionado
+                document.querySelectorAll('input[type="file"]').forEach(input => {
+                    input.disabled = false;
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}
